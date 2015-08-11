@@ -1,4 +1,4 @@
-require(['module/util', 'module/getMore', 'module/dateTime'], function(util, getData, dateTime) {
+require(['module/util', 'module/getMore', 'module/dateTime', 'module/loginModule'], function(util, getData, dateTime, login) {
     var $doc = $(document),
         $win = $(window),
         $topBarSelect = $('.top_bar_select'),
@@ -9,12 +9,17 @@ require(['module/util', 'module/getMore', 'module/dateTime'], function(util, get
         $tmpl = $('#template'),
         $twBtn = $('#tw-btn'),
         tmpl = $tmpl.html(),
-        countryCode = !decodeURIComponent(util.query(location.href, 'country_code')) ? decodeURIComponent(util.query(location.href, 'country_code')) : 'th',
-        countryNameCn = !decodeURIComponent(util.query(location.href, 'country_name_cn')) ? decodeURIComponent(util.query(location.href, 'country_name_cn')) : '泰国',
+        countryCode = !decodeURIComponent(util.query('country_code')) ? decodeURIComponent(util.query('country_code')) : 'th',
+        countryNameCn = !decodeURIComponent(util.query('country_name_cn')) ? decodeURIComponent(util.query('country_name_cn')) : '泰国',
         tmpArr;
 
+        login();
+
     $topBarSelect.find('span').html(countryNameCn);
-    $twBtn.attr('countryCode', countryCode);
+    $twBtn.attr({ //设置我要提问链接
+        'countryCode': countryCode,
+        'href': '提问-选择城市-雷达推送.html'
+    });
 
     function renderData(target, url, pageNum) { //渲染数据结构
         getData({
@@ -35,6 +40,7 @@ require(['module/util', 'module/getMore', 'module/dateTime'], function(util, get
                         v.txtpic = util.isNull(v.Pics) ? ' ' : util.isNull(v.Pics.pic_small) ? v.Pics.pic_small : ' ' ;
                         v.bigimg = util.isNull(v.Pics) ? ' ' : util.isNull(v.Pics.pic) ? v.Pics.pic : ' ';
                         v.dis = util.isNull(v.txtpic) ? 'display:none;' : 'display:block;';
+                        v.answerlink = 'question_id=' + v.question_id + '&q_user_id=' + v.user_id;
                         tmpArr.push(util.tmpl(tmpl, v));
                     });
                     target.siblings().append(tmpArr.join(''));
@@ -46,7 +52,7 @@ require(['module/util', 'module/getMore', 'module/dateTime'], function(util, get
         });
     }
 
-    $hotQuestionList.siblings('a').on('click', function() { //热门列表
+    $hotQuestionList.siblings('.more-btn').on('click', function() { //热门列表
         var $target = $(this),
             pageNum = $target.data('pagenum') ? $target.data('pagenum') : 1,
             url = 'http://114.215.108.44/index.php?a=getHotQuetion&c=index&m=answer',
@@ -57,7 +63,7 @@ require(['module/util', 'module/getMore', 'module/dateTime'], function(util, get
         }
     }).trigger('click');
 
-    $latestQuestionList.siblings('a').on('click', function() { //最新列表
+    $latestQuestionList.siblings('.more-btn').on('click', function() { //最新列表
         var $target = $(this),
             pageNum = $target.data('pagenum') ? $target.data('pagenum') : 1,
             url = 'http://114.215.108.44/index.php?a=getCountryQuestion&c=index&m=answer',
@@ -76,18 +82,11 @@ require(['module/util', 'module/getMore', 'module/dateTime'], function(util, get
 
     $answerWrap.on('click', '.answer_card', function(){ //问答详情
         var $target = $(this),
-            questionid = $target.attr('questionid');
+            questionid = $target.attr('questionid'),
+            quserid = $target.attr('quserid');
 
         localStorage.setItem('qps' + questionid, $target.clone()[0].outerHTML);    
-        location.href = '问答详情.html' + '?question_id=' + questionid;
-    });
-
-    $answerWrap.on('click', '.answer_card .fr', function(e){ //回答页
-        var $target = $(this),
-            questionid = $target.parents('.answer_card').attr('questionid'),
-            quserid = $target.attr('quserid');
-        e.stopPropagation();
-        location.href = '我要回答.html' + '?question_id=' + questionid + '&q_user_id=' + quserid;
+        location.href = '问答详情.html' + '?question_id=' + questionid + '&q_user_id=' + quserid;
     });
 
     $answerWrap.on('click', '.answer_card .answer_a img', function(e){ //查看大图
@@ -95,11 +94,6 @@ require(['module/util', 'module/getMore', 'module/dateTime'], function(util, get
             bsrc = $target.attr('bsrc');
         e.stopPropagation();
         location.href = 'viewImg.html' + '?bsrc=' + encodeURIComponent(bsrc) + '&refer=' + encodeURIComponent(location.href);
-    });
-
-    $twBtn.on('click', function(e){ // 提问页
-        location.href = '提问-选择城市-雷达推送.html';
-        e.preventDefault();
     });
 
 });

@@ -35,7 +35,7 @@
     }
 
     function isNull(data) {
-        return (data == '' || data == undefined || data == null) ? true : data;
+        return (data == '' || data == undefined || data == null);
     }
 
     function strLen(str) { //获取中英文字符长度一个中文占两个字符
@@ -65,18 +65,14 @@
         });
     }
 
-    function query(url, query){
-        var queryRegex = new RegExp(query + '=(.+)&|' + query + '=(.+)', 'g'),
-            querystr;
+    function query(query){
+        var subUrl = location.search.slice(location.search.indexOf('?') + 1),
+            subArr = subUrl.split('&') || [],
+            querystr = '';
 
-        if(queryRegex.test(url)){
-            querystr = url.match(queryRegex)[0];
-            querystr = querystr.replace('#','&');
-            querystr = querystr.slice(querystr.indexOf('=') + 1, querystr.indexOf('&') == -1 ? querystr.length : querystr.indexOf('&'));
-        }else{
-            querystr = null;
-        }
-        return querystr;
+        return subArr.forEach(function(v){
+            v.indexOf(query + '=') === 0 && (querystr = v.slice(query.length + 1))
+        }), querystr;
     }
 
 

@@ -27,11 +27,11 @@
 	<section class="answer_wrap padding_b_55">
 		<article id="hot-question-list">
 			<div></div>
-			<a href="#nogo" class="more-btn" style="display:none;">加载更多</a>
+			<div class="more-btn" style="display:none;">加载更多</div>
 		</article>
 		<article id="latest-question-list" style="display:none;">
 			<div></div>
-			<a href="#nogo" class="more-btn" style="display:none;">加载更多</a>
+			<div class="more-btn" style="display:none;">加载更多</div>
 		</article>
 	</section>
 	
@@ -40,9 +40,9 @@
 			<a href="#" title="我要提问" id="tw-btn" class="tw"><img src="images/t_btn.png" width="14" /> 我要提问</a>
 		</p>
 	</div>
-
+	 <!-- href="问答详情.html?{questiondetails}" -->
 	<script id="template" type="text/template">
-	    <div class="answer_card" questionid={question_id}>
+	    <div class="answer_card" questionid="{question_id}" quserid="{user_id}">
 	    	<dl class="answer_card_dl">
 	    		<dt><img src="{avatar}" alt="" /></dt>
 	    		<dd>
@@ -57,8 +57,8 @@
 	    	</div>
 	    	<div class="answer_a_op">
 	    		<p class="fl">{datetime}</p>
-	    		<p class="fr" quserid="{user_id}">
-	    			<span>回答 {answer_num}</span>
+	    		<p class="fr">
+	    			<a href="我要回答.html?{answerlink}">回答 {answer_num}</a>
 	    		</p>
 	    	</div>
 	    </div>

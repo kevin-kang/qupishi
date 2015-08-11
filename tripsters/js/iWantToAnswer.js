@@ -3,11 +3,10 @@ require(['module/util', 'module/getMore'], function(util, getData) {
         $win = $(window),
         $jAnswerBtn = $('.j_answer'),
         $jAnswerContent = $('.j_answer_content'),
-        questionid = decodeURIComponent(util.query(location.href, 'question_id')) || 1142,
-        userid = decodeURIComponent(util.query(location.href, 'user_id')) || 3,
-        quserid = decodeURIComponent(util.query(location.href, 'q_user_id')) || 10450,
-        refer = decodeURIComponent(util.query(location.href, 'q_user_id')),
-        detail = $jAnswerContent.val();
+        userInfo = JSON.parse(localStorage.getItem('www.tripsters.cn')),
+        questionid = decodeURIComponent(util.query(location.href, 'question_id')),
+        userid = userInfo.id,
+        quserid = decodeURIComponent(util.query(location.href, 'q_user_id'));
 
     $jAnswerBtn.on('click', function() {
         getData({
@@ -16,11 +15,12 @@ require(['module/util', 'module/getMore'], function(util, getData) {
                 question_id: questionid,
                 user_id: userid,
                 q_user_id: quserid,
-                detail: detail
+                detail: $jAnswerContent.val()
             },
             cb: function(res) {
                 if(res.retcode){
-                    location.href = refer;
+                    history.go(-1)
+                    // location.href = refer;
                 }
             }
         });

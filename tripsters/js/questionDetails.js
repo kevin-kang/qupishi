@@ -6,8 +6,13 @@ require(['module/util', 'module/getMore', 'module/dateTime'], function(util, get
         $tmpl = $('#template'),
         $hdBtn = $('#hd-btn'),
         tmpl = $tmpl.html(),
-        questionid = decodeURIComponent(util.query(location.href, 'question_id')),
+        questionid = decodeURIComponent(util.query('question_id')),
+        quserid = decodeURIComponent(util.query('q_user_id')),
         tmpArr;
+
+    $hdBtn.attr({ //设置我要回答链接
+        'href': '我要回答.html?question_id=' + questionid + '&q_user_id=' + quserid
+    });
 
     function renderData(target, url, pageNum) { //渲染数据结构
         getData({ //热门列表
@@ -28,6 +33,7 @@ require(['module/util', 'module/getMore', 'module/dateTime'], function(util, get
                         v.txtpic = util.isNull(v.Pics) ? ' ' : util.isNull(v.Pics.pic_small) ? v.Pics.pic_small : ' ' ;
                         v.bigimg = util.isNull(v.Pics) ? ' ' : util.isNull(v.Pics.pic) ? v.Pics.pic : ' ';
                         v.dis = util.isNull(v.txtpic) ? 'display:none;' : 'display:block;';
+                        v.questionlink = 'question_id=' + questionid + '&q_user_id=' + v.q_user_id + '&answer_user_id=' + v.user_id;
                         tmpArr.push(util.tmpl(tmpl, v));
                     });
                     target.siblings().append(tmpArr.join(''));
@@ -43,7 +49,7 @@ require(['module/util', 'module/getMore', 'module/dateTime'], function(util, get
         $qusetionBox.html(localStorage.getItem('qps' + questionid));
     }
 
-    $answerBox.siblings('a').on('click', function() { //回答列表
+    $('.more-btn').on('click', function() { //回答列表
         var $target = $(this),
             pageNum = $target.data('pagenum') ? $target.data('pagenum') : 1,
             url = 'http://114.215.108.44/index.php?a=getAnswer&c=index&m=answer',
@@ -54,12 +60,7 @@ require(['module/util', 'module/getMore', 'module/dateTime'], function(util, get
         if (!nodata) {
             renderData($target, url, pageNum);
         }
-    }).trigger('click');    
-
-    $answerBox.on('click', '.answer_card .fr', function(e){ //提问页
-        e.stopPropagation();
-        location.href = '提问-选择城市-雷达推送.html';
-    });
+    }).trigger('click');
 
     $answerBox.on('click', '.answer_card .answer_a img', function(e){ //查看大图
         var $target = $(this),
@@ -68,8 +69,4 @@ require(['module/util', 'module/getMore', 'module/dateTime'], function(util, get
         location.href = 'viewImg.html' + '?bsrc=' + encodeURIComponent(bsrc) + '&refer=' + encodeURIComponent(location.href);
     });
 
-    $hdBtn.on('click', function(e){ // 提问页
-        location.href = '我要回答.html';
-        e.preventDefault();
-    });
 });
