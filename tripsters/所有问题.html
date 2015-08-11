@@ -16,101 +16,55 @@
 <body>
 	<!--top_bar-->
 	<header class="top_bar">
-		<p class="top_bar_select">泰国<i></i></p>
+		<p class="top_bar_select"><span>泰国</span><i></i></p>
 		<ul class="top_bar_nav">
 			<li class="active">热门</li>
 			<li>最新</li>
 		</ul>
 	</header>
-	
+
 	<!--回答-->
 	<section class="answer_wrap padding_b_55">
-		<div class="answer_card">
-			<dl class="answer_card_dl">
-				<dt><img src="images/pic.jpg" alt="" /></dt>
-				<dd>
-					<p class="an_q">
-						怎样在土耳其租到靠谱的车？如果可以是否能给几个推荐？
-					</p>
-				</dd>				
-			</dl>
-			<div class="answer_a">
-				<p>2月20日准备6人去土耳其自驾网上看不好7座的车也比较少。所以在考虑当地在租车请问当地租7座车靠谱吗？</p>
-			</div>
-			<div class="answer_a_op">
-				<p class="fl">1分钟前</p>
-				<p class="fr">
-					<span>回答 5</span>
-					<span>收藏 5</span>
-				</p>
-			</div>
-		</div>
-		<div class="answer_card">
-			<dl class="answer_card_dl">
-				<dt><img src="images/pic.jpg" alt="" /></dt>
-				<dd>
-					<p class="an_q">
-						怎样在土耳其租到靠谱的车？如果可以是否能给几个推荐？
-					</p>
-				</dd>				
-			</dl>
-			<div class="answer_a">
-				<p>2月20日准备6人去土耳其自驾网上看不好7座的车也比较少。所以在考虑当地在租车请问当地租7座车靠谱吗？</p>
-			</div>
-			<div class="answer_a_op">
-				<p class="fl">1分钟前</p>
-				<p class="fr">
-					<span>回答 5</span>
-					<span>收藏 5</span>
-				</p>
-			</div>
-		</div>
-		<div class="answer_card">
-			<dl class="answer_card_dl">
-				<dt><img src="images/pic.jpg" alt="" /></dt>
-				<dd>
-					<p class="an_q">
-						怎样在土耳其租到靠谱的车？如果可以是否能给几个推荐？
-					</p>
-				</dd>				
-			</dl>
-			<div class="answer_a">
-				<p>2月20日准备6人去土耳其自驾网上看不好7座的车也比较少。所以在考虑当地在租车请问当地租7座车靠谱吗？</p>
-			</div>
-			<div class="answer_a_op">
-				<p class="fl">1分钟前</p>
-				<p class="fr">
-					<span>回答 5</span>
-					<span>收藏 5</span>
-				</p>
-			</div>
-		</div>
-		<div class="answer_card">
-			<dl class="answer_card_dl">
-				<dt><img src="images/pic.jpg" alt="" /></dt>
-				<dd>
-					<p class="an_q">
-						怎样在土耳其租到靠谱的车？如果可以是否能给几个推荐？
-					</p>
-				</dd>				
-			</dl>
-			<div class="answer_a">
-				<p>2月20日准备6人去土耳其自驾网上看不好7座的车也比较少。所以在考虑当地在租车请问当地租7座车靠谱吗？</p>
-			</div>
-			<div class="answer_a_op">
-				<p class="fl">1分钟前</p>
-				<p class="fr">
-					<span>回答 5</span>
-					<span>收藏 5</span>
-				</p>
-			</div>
-		</div>
+		<article id="hot-question-list">
+			<div></div>
+			<a href="#nogo" class="more-btn" style="display:none;">加载更多</a>
+		</article>
+		<article id="latest-question-list" style="display:none;">
+			<div></div>
+			<a href="#nogo" class="more-btn" style="display:none;">加载更多</a>
+		</article>
 	</section>
 	
 	<div class="answer_bottom">
 		<p class="answer_bottom_cont">
-			<a href="#" title="我要提问" class="tw"><img src="images/t_btn.png" width="14" /> 我要提问</a>
+			<a href="#" title="我要提问" id="tw-btn" class="tw"><img src="images/t_btn.png" width="14" /> 我要提问</a>
 		</p>
 	</div>
+
+	<script id="template" type="text/template">
+	    <div class="answer_card" questionid={question_id}>
+	    	<dl class="answer_card_dl">
+	    		<dt><img src="{avatar}" alt="" /></dt>
+	    		<dd>
+	    			<p class="an_q">
+	    				{title}
+	    			</p>
+	    		</dd>				
+	    	</dl>
+	    	<div class="answer_a">
+	    		<p>{detail}</p>
+	    		<img style="{dis}" src="{txtpic}" bsrc="{bigimg}" alt="">
+	    	</div>
+	    	<div class="answer_a_op">
+	    		<p class="fl">{datetime}</p>
+	    		<p class="fr" quserid="{user_id}">
+	    			<span>回答 {answer_num}</span>
+	    		</p>
+	    	</div>
+	    </div>
+	</script>
+
+	<script src="js/lib/zepto.js"></script>
+	<script src="js/lib/require.js" data-main="js/allQuestionList"></script>
 </body>
 </html>
