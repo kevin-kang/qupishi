@@ -9,7 +9,7 @@
 }(function() {
 
     function addZero(str){
-        return parseInt(str,10) > 10 ? str : '0' + str;
+        return parseInt(str,10) > 9 ? str : '0' + str;
     }
 
     return function dateTime(timestr) { // 时间转换
@@ -24,7 +24,7 @@
             diffHoures = parseInt(diffDate / 60 / 60 / 1000, 10),
             diffMinutes = parseInt(diffDate / 60 / 1000, 10),
             diffseconds = parseInt(diffDate / 1000, 10),
-            disTime;
+            disTime = '刚刚';
 
         if (diffDay > 0) {
             disTime = oldYear + '-' + addZero(oldMonth) + '-' + addZero(oldDay);
@@ -38,6 +38,7 @@
         if (diffDay == 0 && diffHoures == 0 && diffMinutes == 0 && diffseconds > 0) {
             disTime = diffseconds + '秒前';
         }
+
         return disTime;
     };
 }));
