@@ -1,0 +1,1 @@
+require(["module/util"],function(e){$(document),$(window),$(".j_submit_ask"),$(".an_tips_key_tips"),decodeURIComponent(e.query(location.href,"question_id"))});

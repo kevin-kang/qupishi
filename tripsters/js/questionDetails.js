@@ -29,7 +29,7 @@ require(['module/util', 'module/getMore', 'module/dateTime'], function(util, get
                         v.nickname = util.isNull(v.nickname) ? '匿名用户' : v.nickname;
                         v.datetime = dateTime(v.created);
                         v.user_pic = util.isNull(v.user_pic) ? ' ' : v.user_pic;
-                        v.top = util.isNull(v.top) ? '0' : v.user_pic;
+                        v.top = util.isNull(v.top) ? '0' : v.top + '';
                         v.txtpic = util.isNull(v.Pics) ? ' ' : util.isNull(v.Pics.pic_small) ? v.Pics.pic_small : ' ' ;
                         v.bigimg = util.isNull(v.Pics) ? ' ' : util.isNull(v.Pics.pic) ? v.Pics.pic : ' ';
                         v.dis = util.isNull(v.txtpic) ? 'display:none;' : 'display:block;';

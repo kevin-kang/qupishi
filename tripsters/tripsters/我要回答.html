@@ -14,33 +14,31 @@
     <title>趣皮士</title>
 </head>
 <body>
-	<!--top_bar-->
+	<!--top_bar  注意完成的类-j_answer,是为提交回答加入的-->
 	<header class="top_bar">
 		<span class="top_bar_ico top_back">返回</span>
-		<h2>我的回答</h2>	
+		<h2>我要回答</h2>
+		<span class="top_bar_ok j_answer">完成</span>
 	</header>
 	
 	<!--回答-->
-	<section class="answer_wrap">
-		<article class="answer-box">
-            <div></div>
-            <a href="#nogo" class="more-btn" style="display:none;">加载更多</a>
-        </article>
+	<section class="answer_area line_area">
+		<textarea class="j_answer_content" placeholder="我要回答..."></textarea>
 	</section>
 
-    <script id="template" type="text/template">
-        <div class="answer_card">
-            <p class="answer_t">
-                回复 <a href="#nogo">{qnickname}</a>：{detail}
-            </p>
-            <div class="answer_mode">
-                <p><a href="#nogo">{qnickname}</a>：</p>
-                <p>{qtitle}</p>
-            </div>
-        </div>
-    </script>
+	<script type="text/javascript">
+		var	answerConfig ={
+				api : "http://114.215.108.44/index.php?a=sendAnswer&c=index&m=answer",
+				question_id : "2",
+				user_id : '3',
+				q_user_id : "4",
+				//注： 以下这两个如果需要可以加入，指定URL地址，如果不需要，可以为空，或是不指定此参数。
+				success_href : '', 	//成功后调到的页面URL, 
+				failure_href : ''	//失败后调到的页面URL
+			}
+	</script>
 
-    <script src="js/lib/zepto.js"></script>
-    <script src="js/lib/require.js" data-main="js/myAnswer.js"></script>
+	<script type="text/javascript" src="./js/zepto.js"></script>
+	<script type="text/javascript" src="./js/qupishi.js"></script>
 </body>
 </html>

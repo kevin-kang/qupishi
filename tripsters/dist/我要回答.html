@@ -14,33 +14,19 @@
     <title>趣皮士</title>
 </head>
 <body>
-	<!--top_bar-->
+	<!--top_bar  注意完成的类-j_answer,是为提交回答加入的-->
 	<header class="top_bar">
 		<span class="top_bar_ico top_back">返回</span>
-		<h2>我的回答</h2>	
+		<h2>我要回答</h2>
+		<span class="top_bar_ok j_answer">完成</span>
 	</header>
 	
 	<!--回答-->
-	<section class="answer_wrap">
-		<article class="answer-box">
-            <div></div>
-            <a href="#nogo" class="more-btn" style="display:none;">加载更多</a>
-        </article>
+	<section class="answer_area line_area">
+		<textarea class="j_answer_content" placeholder="我要回答..."></textarea>
 	</section>
 
-    <script id="template" type="text/template">
-        <div class="answer_card">
-            <p class="answer_t">
-                回复 <a href="#nogo">{qnickname}</a>：{detail}
-            </p>
-            <div class="answer_mode">
-                <p><a href="#nogo">{qnickname}</a>：</p>
-                <p>{qtitle}</p>
-            </div>
-        </div>
-    </script>
-
-    <script src="js/lib/zepto.js"></script>
-    <script src="js/lib/require.js" data-main="js/myAnswer.js"></script>
+	<script src="js/lib/zepto.js"></script>
+    <script src="js/lib/require.js" data-main="js/iWantToAnswer.js"></script>
 </body>
 </html>

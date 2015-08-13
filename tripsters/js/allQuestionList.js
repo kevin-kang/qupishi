@@ -17,9 +17,9 @@ require(['module/util', 'module/getMore', 'module/dateTime', 'module/loginModule
     login('http://114.215.108.44/index.php?a=getWXUserInfo&c=weixin&m=weixin', WXcode);//微信授权
 
     $topBarSelect.find('span').html(countryNameCn);
-    $twBtn.attr({ //设置我要提问链接
-        'countryCode': countryCode,
-        'href': '提问-选择城市-雷达推送.html'
+
+    $twBtn.attr({
+        'href': $twBtn.attr('href') + '?country_code=' + countryCode
     });
 
     function renderData(target, url, pageNum) { //渲染数据结构
