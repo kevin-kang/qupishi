@@ -9,7 +9,7 @@ require(['module/util', 'module/getMore'], function(util, getData){
     getData({
         url: 'http://114.215.108.44/index.php?a=getCity&c=index&m=country',
         data: {
-            'country_code': util.query(location.href, 'country_code')
+            'country_code': util.query('country_code') || 'th'
         },
         cb: function(res){
             if(res.retcode == 'OK' && res.city){

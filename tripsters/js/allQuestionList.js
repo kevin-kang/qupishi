@@ -11,9 +11,10 @@ require(['module/util', 'module/getMore', 'module/dateTime', 'module/loginModule
         tmpl = $tmpl.html(),
         countryCode = decodeURIComponent(util.query('country_code')) ? decodeURIComponent(util.query('country_code')) : 'th',
         countryNameCn = decodeURIComponent(util.query('country_name_cn')) ? decodeURIComponent(util.query('country_name_cn')) : '泰国',
+        WXcode = decodeURIComponent(util.query('code')),
         tmpArr;
 
-        login();
+    login('http://114.215.108.44/index.php?a=getWXUserInfo&c=weixin&m=weixin', WXcode);//微信授权
 
     $topBarSelect.find('span').html(countryNameCn);
     $twBtn.attr({ //设置我要提问链接

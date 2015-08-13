@@ -1,10 +1,9 @@
 define(['module/util'], function(util) {
     'use strict';
 
-    var WXcode = '03171fa2f4f15f8b3793dac661d142cG';
-    function getWXcode(WXcode) {
+    function getWXcode(url, WXcode) {
         $.ajax({
-            url: 'http://114.215.108.44/index.php?a=getWXUserInfo&c=weixin&m=weixin',
+            url: url,
             type: 'GET',
             dataType: 'jsonp',
             data: {
@@ -18,7 +17,7 @@ define(['module/util'], function(util) {
         });
     }
 
-    return function login() {
+    return function login(WXcode) {
         getWXcode(WXcode);
     };
 });

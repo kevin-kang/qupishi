@@ -6,6 +6,7 @@ var gulp = require('gulp'),
 	concat = require('gulp-concat'),
 	rename = require('gulp-rename'),
 	amdOptimize = require('amd-optimize'),
+	uglify = require('gulp-uglify'),
 	copyDest = ''; //要监控的文件夹
 
 var destfile = '';
@@ -43,6 +44,14 @@ gulp.task('concatjs', function() { //合并requirejs依赖文件到一个文件�
         .pipe(concat('addcreditcard.min.js'))
         // .pipe(uglify())
         .pipe(gulp.dest('js'));
+});
+
+gulp.task('uglify', function(){
+	return gulp.src('js/**/*.js')
+        .pipe(uglify().on('error', function(e){
+        	console.log(e);
+        }))
+        .pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('copy', function() {

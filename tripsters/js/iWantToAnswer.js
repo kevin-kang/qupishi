@@ -12,13 +12,13 @@ require(['module/util', 'module/getMore'], function(util, getData) {
         nickname = decodeURIComponent(util.query('nikcname')),
         questionClosely = 0;
 
-    if (answeruserid && nickname) {
+    if (answeruserid && nickname) { //追问页头修改及提示被追问者昵称
         questionClosely = 1;
         $jAnswerContent.attr('placeholder', '追问' + nickname);
         $h2.html('我要提问');
     }
 
-    $jAnswerBtn.on('click', function() {
+    $jAnswerBtn.on('click', function() { //提交回答或者追问
         var answerDataObj = {
             url: 'http://114.215.108.44/index.php?a=sendAnswer&c=index&m=answer', //回复
             data: {
