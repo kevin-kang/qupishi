@@ -57,8 +57,9 @@ require(['module/util', 'module/getMore', 'module/dateTime', 'module/loginModule
             pageNum = $target.data('pagenum') ? $target.data('pagenum') : 1,
             url = 'http://114.215.108.44/index.php?a=getHotQuetion&c=index&m=answer',
             nodata = $target.data('nodata');
-
+            
         if (!nodata) {
+            $target.html('正在加载...');
             renderData($target, url, pageNum);
         }
     }).trigger('click');
@@ -68,8 +69,9 @@ require(['module/util', 'module/getMore', 'module/dateTime', 'module/loginModule
             pageNum = $target.data('pagenum') ? $target.data('pagenum') : 1,
             url = 'http://114.215.108.44/index.php?a=getCountryQuestion&c=index&m=answer',
             nodata = $target.data('nodata');
-
+        
         if (!nodata) {
+            $target.html('正在加载...');
             renderData($target, url, pageNum);
         }
     }).trigger('click');

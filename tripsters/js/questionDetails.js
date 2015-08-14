@@ -30,8 +30,8 @@ require(['module/util', 'module/getMore', 'module/dateTime'], function(util, get
                         v.datetime = dateTime(v.created);
                         v.user_pic = util.isNull(v.user_pic) ? ' ' : v.user_pic;
                         v.top = util.isNull(v.top) ? '0' : v.top + '';
-                        v.txtpic = util.isNull(v.Pics) ? ' ' : util.isNull(v.Pics.pic_small) ? v.Pics.pic_small : ' ' ;
-                        v.bigimg = util.isNull(v.Pics) ? ' ' : util.isNull(v.Pics.pic) ? v.Pics.pic : ' ';
+                        v.txtpic = util.isNull(v.Pics) ? ' ' : util.isNull(v.Pics.pic_small) ? ' ' : v.Pics.pic_small;
+                        v.bigimg = util.isNull(v.Pics) ? ' ' : util.isNull(v.Pics.pic) ? ' ' : v.Pics.pic;
                         v.dis = util.isNull(v.txtpic) ? 'display:none;' : 'display:block;';
                         v.questionlink = 'question_id=' + questionid + '&q_user_id=' + v.q_user_id + '&answer_user_id=' + v.user_id + '&nikcname=' + v.nickname;
                         tmpArr.push(util.tmpl(tmpl, v));
@@ -54,10 +54,12 @@ require(['module/util', 'module/getMore', 'module/dateTime'], function(util, get
             pageNum = $target.data('pagenum') ? $target.data('pagenum') : 1,
             url = 'http://114.215.108.44/index.php?a=getAnswer&c=index&m=answer',
             nodata = $target.data('nodata');
+            
         if(!$qusetionBox.html()){
             renderQuestion();
         }
         if (!nodata) {
+            $target.html('正在加载...');
             renderData($target, url, pageNum);
         }
     }).trigger('click');

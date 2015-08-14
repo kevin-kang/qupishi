@@ -40,6 +40,7 @@ require(['module/util', 'module/getMore'], function(util, getData) {
             nodata = $target.data('nodata');
 
         if (!nodata) {
+            $target.html('正在加载...');
             renderData($target, url, pageNum);
         }
     }).trigger('click');
