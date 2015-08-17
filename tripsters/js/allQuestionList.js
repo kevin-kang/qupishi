@@ -1,3 +1,6 @@
+requirejs.config({
+    urlArgs: 'ver=0.0.1'
+});
 require(['module/util', 'module/getMore', 'module/dateTime', 'module/loginModule'], function(util, getData, dateTime, login) {
     var $doc = $(document),
         $win = $(window),
@@ -14,12 +17,14 @@ require(['module/util', 'module/getMore', 'module/dateTime', 'module/loginModule
         WXcode = decodeURIComponent(util.query('code')),
         tmpArr;
 
-    login('http://114.215.108.44/index.php?a=getWXUserInfo&c=weixin&m=weixin', WXcode);//微信授权
+    if(!localStorage.getItem('www.tripsters.cn')){
+        login('http://114.215.108.44/index.php?a=getWXUserInfo&c=weixin&m=weixin', WXcode);//微信授权
+    }
 
     $topBarSelect.find('span').html(countryNameCn);
 
     $twBtn.attr({
-        'href': $twBtn.attr('href') + '?country_code=' + countryCode
+        'href': $twBtn.attr('href') + '?country_name_cn=' + countryNameCn
     });
 
     function renderData(target, url, pageNum) { //渲染数据结构

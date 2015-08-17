@@ -5,6 +5,7 @@ require(['module/util', 'module/getMore'], function(util, getData) {
         $topBarOk = $('.top_bar_ok'),
         $tmpl = $('#template'),
         countrycode = util.query('country_code') || 'th',
+        countryNameCn = decodeURIComponent(util.query('country_name_cn')) || '泰国',
         qsdetail = sessionStorage.getItem('qsdetail'),
         userInfo = JSON.parse(localStorage.getItem('www.tripsters.cn')),
         userid = userInfo.id,
@@ -43,10 +44,10 @@ require(['module/util', 'module/getMore'], function(util, getData) {
             a: 'sendQuestion',
             c: 'index',
             m: 'answer',
-            detail: qsdetail,
             user_id: userid,
             city: [],
             title: qsdetail,
+            country: countryNameCn,
             platform: 'weixinplatform'
         };
         if ($cityAreaItems.find('.active').length) {
