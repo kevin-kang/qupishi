@@ -1,1 +1,0 @@
-!function(a){"function"==typeof define&&define.amd?define(a):a()}(function(){"use strict";return function(a){var a=$.extend({data:"",url:"",type:"GET",dataType:"jsonp",jsonpCallback:"",cb:function(){}},a||{});$.ajax({url:a.url,type:a.type,dataType:a.dataType,jsonpCallback:a.jsonpCallback,data:a.data,success:function(n){a.cb(n)}})}});

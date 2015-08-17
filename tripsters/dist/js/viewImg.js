@@ -1,1 +1,0 @@
-require(["module/util"],function(e){var o=$(".view-img-box"),n=o.find("img"),r=decodeURIComponent(e.query("bsrc")),i=decodeURIComponent(e.query("refer"));n.attr("src",r),o.on("click",function(){location.href=i})});

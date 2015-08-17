@@ -1,1 +1,0 @@
-define(["module/util"],function(t){"use strict";return function(t,e){$.ajax({url:t,type:"GET",dataType:"jsonp",data:{code:e},success:function(t){t&&localStorage.setItem("www.tripsters.cn",JSON.stringify(t))}})}});
