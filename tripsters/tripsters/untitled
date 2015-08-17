@@ -1,0 +1,60 @@
+
+
+1、我要提问
+
+http://114.215.108.44/index.php?a=sendQuestion&c=index&m=answer&platform=weixin
+
+user_id=user_id&country=country&city=city&title=title
+
+askConfig ={
+	http://114.215.108.44/index.php?a=sendQuestion&c=index&m=answer&platform=weixin
+	user_id : 3
+}
+
+country  从serach_url  取
+city=城市；之间用英文逗号间隔
+title
+detail=详情&
+
+
+
+2、我来回答
+
+
+http://114.215.108.44/index.php?a=sendAnswer&c=index&m=answer
+
+参数：
+
+answerConfig ={
+	api : "http://114.215.108.44/index.php?a=sendAnswer&c=index&m=answer",
+	question_id : "2",
+	user_id : '3',
+	q_user_id : "4",
+	success_href : '', 	//成功后调到的页面URL
+	failure_href : ''	//失败后调到的页面URL
+}
+
+
+
+
+detail ：回答详情
+
+post方式
+
+
+3、推送多少人
+
+http://114.215.108.44/index.php?a=getPushQuestionNum&c=index&m=answer&user_id=3
+
+selectConfig{
+	user_id: 2
+}
+
+
+
+返回值：
+
+data{
+	ret: 'OK',
+	message: '提示'
+}

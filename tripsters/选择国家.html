@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--STATUS OK-->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no,minimal-ui">
+    <meta name="format-detection" content="telephone=no" searchtype="map">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <link rel="apple-touch-icon" sizes="57x57" href=""/>
+    <link rel="apple-touch-icon" sizes="72x72" href=""/>
+    <link data-logo="" rel="apple-touch-icon" sizes="114x114" href=""/>
+    <link rel="apple-touch-icon-precomposed" href="#"/>
+    <link rel="stylesheet" type="text/css" href="./css/style.css"/>
+    <title>趣皮士</title>
+</head>
+<body>
+	<!--top_bar-->
+	<header class="top_bar">
+		<span class="top_bar_ico top_back">返回</span>
+		<h2>选择国家</h2>
+	</header>
+	<!--选择国家-->
+	<section class="city_card">
+		<ul class="city_card_items"></ul>
+	</section>
+    <script id="template" type="text/template">
+        <li class="city_card_list" countryNameCn="{country_name_cn}" countryCode="{country_code}">
+            <img src="images/city_1.jpg" alt="" class="city_card_list_tu" />
+            <p class="city_card_list_t">{country_name_cn}</p>
+            <p class="city_list_zt"><img src="images/zt_{hot}.png" width="82" /></p>
+        </li>
+    </script>
+    <script src="js/lib/zepto.js"></script>
+    <script src="js/lib/require.js" data-main="js/country"></script>
+</body>
+</html>
