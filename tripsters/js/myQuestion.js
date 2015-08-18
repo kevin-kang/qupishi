@@ -1,4 +1,4 @@
-require(['module/util', 'module/getMore', 'module/dateTime'], function(util, getData, dateTime) {
+require(['module/util', 'module/getMore', 'module/dateTime', 'module/loginModule'], function(util, getData, dateTime, login) {
     var $doc = $(document),
         $win = $(window),
         $answerWrap = $('.answer_wrap'),
@@ -6,7 +6,7 @@ require(['module/util', 'module/getMore', 'module/dateTime'], function(util, get
         $tmpl = $('#template'),
         userInfo = JSON.parse(localStorage.getItem('www.tripsters.cn')),
         WXcode = decodeURIComponent(util.query('code')),
-        userid = userInfo.id,
+        userid = userInfo ? userInfo.id : '',
         tmpl = $tmpl.html(),
         tmpArr;
 

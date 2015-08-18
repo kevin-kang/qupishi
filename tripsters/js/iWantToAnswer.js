@@ -25,7 +25,7 @@ require(['module/util', 'module/getMore'], function(util, getData) {
                 question_id: questionid,
                 user_id: userid,
                 q_user_id: quserid,
-                detail: $jAnswerContent.val()
+                detail: '回复' + nickname + '：' + $jAnswerContent.val()
             }
         };
 

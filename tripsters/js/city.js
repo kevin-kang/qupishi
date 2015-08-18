@@ -35,7 +35,7 @@ require(['module/util', 'module/getMore'], function(util, getData) {
             $target.find('.city_area_r_input').toggleClass('active');
         } else if (idx < 3 && !$target.find('.city_area_r_input').hasClass('active')) {
             $target.find('.city_area_r_input').toggleClass('active');
-           ++idx;
+            ++idx;
         }
     });
 
@@ -57,12 +57,16 @@ require(['module/util', 'module/getMore'], function(util, getData) {
         }
         data.city = data.city.toString();
 
+        if (util.isNull(data.city)) {
+            alert('城市必选！');
+            return false;
+        }
         getData({
             url: 'http://114.215.108.44/index.php',
             dataType: 'jsonp',
             data: data,
-            cb: function(res){
-                if(res.retcode){
+            cb: function(res) {
+                if (res.retcode) {
                     alert('提问成功');
                     location.href = '所有问题.html';
                 }
