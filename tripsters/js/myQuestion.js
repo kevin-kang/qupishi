@@ -12,6 +12,8 @@ require(['module/util', 'module/getMore', 'module/dateTime'], function(util, get
 
     if(WXcode){//微信授权
         login('http://114.215.108.44/index.php?a=getWXUserInfo&c=weixin&m=weixin', WXcode);
+        userInfo = JSON.parse(localStorage.getItem('www.tripsters.cn'));
+        userid = userInfo.id;
     }
 
     function renderData(target, url, pageNum) { //渲染数据结构
