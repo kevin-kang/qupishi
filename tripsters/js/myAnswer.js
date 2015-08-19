@@ -4,7 +4,7 @@ require(['module/util', 'module/getMore'], function(util, getData) {
         $answerBox = $('.answer-box > div'),
         $tmpl = $('#template'),
         userInfo = JSON.parse(localStorage.getItem('www.tripsters.cn')),
-        userid = userInfo.id,
+        userid = userInfo ? userInfo.id : '',
         tmpl = $tmpl.html(),
         WXcode = decodeURIComponent(util.query('code')),
         tmpArr;
