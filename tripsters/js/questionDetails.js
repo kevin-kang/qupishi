@@ -33,7 +33,7 @@ require(['module/util', 'module/getMore', 'module/dateTime'], function(util, get
                         v.txtpic = util.isNull(v.Pics) ? ' ' : util.isNull(v.Pics.pic_small) ? ' ' : v.Pics.pic_small;
                         v.bigimg = util.isNull(v.Pics) ? ' ' : util.isNull(v.Pics.pic) ? ' ' : v.Pics.pic;
                         v.dis = util.isNull(v.txtpic) ? 'display:none;' : 'display:block;';
-                        v.questionlink = 'question_id=' + questionid + '&q_user_id=' + v.q_user_id + '&answer_user_id=' + v.user_id + '&nikcname=' + v.nickname;
+                        v.questionlink = 'question_id=' + questionid + '&q_user_id=' + v.q_user_id + '&answer_user_id=' + v.user_id + '&nickname=' + v.nickname;
                         tmpArr.push(util.tmpl(tmpl, v));
                     });
                     target.siblings().append(tmpArr.join(''));

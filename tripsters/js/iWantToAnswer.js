@@ -9,23 +9,28 @@ require(['module/util', 'module/getMore'], function(util, getData) {
         userid = userInfo.id,
         quserid = decodeURIComponent(util.query('q_user_id')),
         answeruserid = decodeURIComponent(util.query('answer_user_id')),
-        nickname = decodeURIComponent(util.query('nikcname')),
+        nickname = decodeURIComponent(util.query('nickname')),
         questionClosely = 0;
 
     if (answeruserid && nickname) { //追问页头修改及提示被追问者昵称
         questionClosely = 1;
         $jAnswerContent.attr('placeholder', '追问' + nickname);
-        $h2.html('我要提问');
+        $h2.html('我要追问');
     }
 
     $jAnswerBtn.on('click', function() { //提交回答或者追问
+        if (util.isNull($jAnswerContent.val())) {
+            alert('请填写回答或者追问内容');
+            return false;
+        }
+
         var answerDataObj = {
             url: 'http://114.215.108.44/index.php?a=sendAnswer&c=index&m=answer', //回复
             data: {
                 question_id: questionid,
                 user_id: userid,
                 q_user_id: quserid,
-                detail: '回复' + nickname + '：' + $jAnswerContent.val()
+                detail: ((answeruserid && nickname) ? '回复' + nickname + '：' : '') + $jAnswerContent.val()
             }
         };
 
@@ -42,8 +47,11 @@ require(['module/util', 'module/getMore'], function(util, getData) {
             url: answerDataObj.url,
             data: answerDataObj.data,
             cb: function(res) {
-                if (res.retcode) {
+                if (res.retcode == 'true') {
+                    alert('回答成功');
                     history.go(-1);
+                } else {
+                    alert(res.message);
                 }
             }
         });

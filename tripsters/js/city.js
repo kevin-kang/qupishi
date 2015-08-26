@@ -14,7 +14,7 @@ require(['module/util', 'module/getMore'], function(util, getData) {
         tmpArr = [];
 
     getData({
-        url: 'http://114.215.108.44/index.php?a=getCity&c=index&m=country',
+        url: 'http://www.tripsters.cn/index.php?a=getCity&c=index&m=country',
         data: {
             'country_code': countrycode
         },
@@ -50,6 +50,7 @@ require(['module/util', 'module/getMore'], function(util, getData) {
             country: countryNameCn,
             platform: 'weixinplatform'
         };
+
         if ($cityAreaItems.find('.active').length) {
             $cityAreaItems.find('.active').each(function() {
                 data.city.push($(this).parent().siblings().html());
@@ -62,13 +63,13 @@ require(['module/util', 'module/getMore'], function(util, getData) {
             return false;
         }
         getData({
-            url: 'http://114.215.108.44/index.php',
+            url: 'http://www.tripsters.cn/index.php',
             dataType: 'jsonp',
             data: data,
             cb: function(res) {
-                if (res.retcode) {
+                if (res.retcode == 'true') {
                     alert('提问成功');
-                    location.href = '所有问题.html';
+                    location.href = '所有问题.html' + '?country_code=' + countrycode + '&country_name_cn=' + countryNameCn;
                 }
             }
         });

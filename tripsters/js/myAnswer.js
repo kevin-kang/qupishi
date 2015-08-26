@@ -1,19 +1,36 @@
-require(['module/util', 'module/getMore'], function(util, getData) {
+require(['module/util', 'module/getMore', 'module/loginModule'], function(util, getData, login) {
     var $doc = $(document),
         $win = $(window),
         $answerBox = $('.answer-box > div'),
+        $moreBtn = $answerBox.siblings('.more-btn'),
         $tmpl = $('#template'),
         userInfo = JSON.parse(localStorage.getItem('www.tripsters.cn')),
         userid = userInfo ? userInfo.id : '',
-        tmpl = $tmpl.html(),
         WXcode = decodeURIComponent(util.query('code')),
+        url = 'http://www.tripsters.cn/index.php?a=getUserAnswer&c=index&m=answer',
+        tmpl = $tmpl.html(),
+        pageNum = 1,
+        nodata,
         tmpArr;
 
-    if(WXcode){//微信授权
-        login('http://114.215.108.44/index.php?a=getWXUserInfo&c=weixin&m=weixin', WXcode);
-        userInfo = JSON.parse(localStorage.getItem('www.tripsters.cn'));
-        userid = userInfo.id;
+    if (WXcode && !userid) { //微信授权
+        login('http://www.tripsters.cn/index.php?a=getWXUserInfo&c=weixin&m=weixin', WXcode, function() {
+            userInfo = JSON.parse(localStorage.getItem('www.tripsters.cn'));
+            userid = userInfo.id;
+            renderInit();
+        });
+    } else {
+        renderInit();
     }
+
+    function renderInit(){
+        pageNum = $moreBtn.data('pagenum') ? $moreBtn.data('pagenum') : pageNum;
+        nodata = $moreBtn.data('nodata');
+        if (!nodata) {
+            $moreBtn.html('正在加载...');
+            renderData($moreBtn, url, pageNum);
+        }
+    };
 
     function renderData(target, url, pageNum) { //渲染数据结构
         getData({ //热门列表
@@ -34,23 +51,13 @@ require(['module/util', 'module/getMore'], function(util, getData) {
                     target.siblings().append(tmpArr.join(''));
                     target.html('加载更多').show().data('pagenum', ++pageNum);
                 } else {
-                    target.html('没有更多了').data('nodata', 1);
+                    target.show().html('没有更多了').data('nodata', 1);
                 }
             }
         });
     }
 
-    $answerBox.siblings('.more-btn').on('click', function() { //我的回答列表
-        var $target = $(this),
-            pageNum = $target.data('pagenum') ? $target.data('pagenum') : 1,
-            url = 'http://114.215.108.44/index.php?a=getUserAnswer&c=index&m=answer',
-            nodata = $target.data('nodata');
-
-        if (!nodata) {
-            $target.html('正在加载...');
-            renderData($target, url, pageNum);
-        }
-    }).trigger('click');
+    $moreBtn.on('click', renderInit);//加载更多
 
     $answerBox.on('click', '.answer_card .fr', function(e){ //提问页
         e.stopPropagation();

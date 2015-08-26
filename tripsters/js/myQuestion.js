@@ -3,18 +3,35 @@ require(['module/util', 'module/getMore', 'module/dateTime', 'module/loginModule
         $win = $(window),
         $answerWrap = $('.answer_wrap'),
         $answerBox = $('.answer-box > div'),
+        $moreBtn = $answerBox.siblings('.more-btn'),
         $tmpl = $('#template'),
         userInfo = JSON.parse(localStorage.getItem('www.tripsters.cn')),
         WXcode = decodeURIComponent(util.query('code')),
         userid = userInfo ? userInfo.id : '',
+        url = 'http://www.tripsters.cn/index.php?a=getUserQuestion&c=index&m=answer',
         tmpl = $tmpl.html(),
+        pageNum = 1,
+        nodata,
         tmpArr;
 
-    if(WXcode){//微信授权
-        login('http://114.215.108.44/index.php?a=getWXUserInfo&c=weixin&m=weixin', WXcode);
-        userInfo = JSON.parse(localStorage.getItem('www.tripsters.cn'));
-        userid = userInfo.id;
+    if (WXcode && !userid) { //微信授权
+        login('http://www.tripsters.cn/index.php?a=getWXUserInfo&c=weixin&m=weixin', WXcode, function() {
+            userInfo = JSON.parse(localStorage.getItem('www.tripsters.cn'));
+            userid = userInfo.id;
+            renderInit();
+        });
+    } else {
+        renderInit();
     }
+
+    function renderInit(){
+        pageNum = $moreBtn.data('pagenum') ? $moreBtn.data('pagenum') : pageNum;
+        nodata = $moreBtn.data('nodata');
+        if (!nodata) {
+            $moreBtn.html('正在加载...');
+            renderData($moreBtn, url, pageNum);
+        }
+    };
 
     function renderData(target, url, pageNum) { //渲染数据结构
         getData({ //热门列表
@@ -37,30 +54,20 @@ require(['module/util', 'module/getMore', 'module/dateTime', 'module/loginModule
                     target.siblings().append(tmpArr.join(''));
                     target.html('加载更多').show().data('pagenum', ++pageNum);
                 } else {
-                    target.html('没有更多了').data('nodata', 1);
+                    target.show().html('没有更多了').data('nodata', 1);
                 }
             }
         });
     }
 
-    $answerBox.siblings('.more-btn').on('click', function() { //我的提问列表
-        var $target = $(this),
-            pageNum = $target.data('pagenum') ? $target.data('pagenum') : 1,
-            url = 'http://114.215.108.44/index.php?a=getUserQuestion&c=index&m=answer',
-            nodata = $target.data('nodata');
+    $moreBtn.on('click', renderInit);//加载更多
 
-        if (!nodata) {
-            $target.html('正在加载...');
-            renderData($target, url, pageNum);
-        }
-    }).trigger('click');    
-
-    $answerWrap.on('click', '.answer_card', function(){ //问答详情
+    $answerWrap.on('click', '.answer_card', function() { //问答详情
         var $target = $(this),
             questionid = $target.attr('questionid'),
             quserid = $target.attr('quserid');
 
-        localStorage.setItem('qps' + questionid, $target.clone()[0].outerHTML);//储存问题DOM 
+        localStorage.setItem('qps' + questionid, $target.clone()[0].outerHTML); //储存问题DOM 
         location.href = '问答详情.html' + '?question_id=' + questionid + '&q_user_id=' + quserid;
     });
 });

@@ -1,7 +1,7 @@
 define(['module/util'], function(util) {
     'use strict';
 
-    return function(url, WXcode) {
+    return function(url, WXcode, cb) {
         $.ajax({
             url: url,
             type: 'GET',
@@ -10,8 +10,9 @@ define(['module/util'], function(util) {
                 code: WXcode
             },
             success: function(res) {
-                if (res) {
+                if (res.id) {
                     localStorage.setItem('www.tripsters.cn', JSON.stringify(res));
+                    cb && cb();
                 }
             }
         });

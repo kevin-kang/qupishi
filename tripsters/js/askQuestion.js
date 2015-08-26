@@ -5,16 +5,18 @@ require(['module/util'], function(util) {
         $anOneNum = $('.an_one_num'),
         $questionDetail = $('#question-detail'),
         userInfo = JSON.parse(localStorage.getItem('www.tripsters.cn')),
-        userid = userInfo.id,
+        userid = userInfo ? userInfo.id : '',
         countrycode = util.query('country_code') || 'th',
         countryNameCn = decodeURIComponent(util.query('country_name_cn')) || '泰国',
         tmpArr;
 
     $jSubmitAsk.on('click', function(){
-    	if($questionDetail.val()){
-    		sessionStorage.setItem('qsdetail', $questionDetail.val());
-    		location.href = '选择城市.html?country_code=' + countrycode + '&country_name_cn=' +countryNameCn;
+    	if(util.isNull($questionDetail.val())){
+    		alert('请填写问题');
+            return false;
     	}
+        sessionStorage.setItem('qsdetail', $questionDetail.val());
+        location.href = '选择城市.html?country_code=' + countrycode + '&country_name_cn=' +countryNameCn;
     });
 
     $questionDetail.on('input', function(){

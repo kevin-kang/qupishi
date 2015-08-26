@@ -1,1 +1,1 @@
-define(["module/util"],function(t){"use strict";return function(t,e){$.ajax({url:t,type:"GET",dataType:"jsonp",data:{code:e},success:function(t){t&&localStorage.setItem("www.tripsters.cn",JSON.stringify(t))}})}});
+define(["module/util"],function(t){"use strict";return function(t,e,n){$.ajax({url:t,type:"GET",dataType:"jsonp",data:{code:e},success:function(t){t.id&&(localStorage.setItem("www.tripsters.cn",JSON.stringify(t)),n&&n())}})}});
